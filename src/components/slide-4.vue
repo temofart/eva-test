@@ -9,7 +9,7 @@
         <h2 class="title">Виртуальный<br>конструктор ковриков</h2>
         <div class="step">ШАГ 4 из 4</div>
         <template v-if="!submitted">
-          <strong class="description">Последний шаг – определение сроков пошива и одного из 4 способов оплаты. Заполните форму для связи с консультантом</strong>
+          <strong class="description">Оставьте заявку и получите 2 логотипа в подарок. Мы пошьем Ваш комплект за 48 часов и доставим прямо до дверей вам домой.</strong>
           <input
             :class="{'active': name, 'error': !name}"
             class="input"
@@ -34,30 +34,22 @@
           >
           </masked-input>
 
-          <input
-            type="checkbox"
-            id="agree"
-            @change="agree = !agree"
-            class="input"
-            checked
-          >
-          <label
-            for="agree"
-            class="label"
-            :class="{'error': !agree}"
-            data-text="Даю согласие на обработку персональных данных"
-          />
-          <div class="flex">
-            <button
-              class="button-prev"
-              @click.prevent="prev">Вернуться назад
-            </button>
+          <div class="final-buttons">
             <button
               v-if="!submitted"
-              class="button"
+              class="button button-green"
               :class="{disabled: disabled}"
               :id="`complect_${finalKit}`"
-              @click.prevent="sendData">Жду звонка</button>
+              @click.prevent="sendData"
+            >
+              Заказать комплект
+            </button>
+            <button
+              class="button-prev"
+              @click.prevent="prev"
+            >
+              Вернуться назад
+            </button>
           </div>
         </template>
       </div>
@@ -71,7 +63,7 @@
           </div>
           <div class="feature">
             <div class="icon-2"/>
-            <div>Доставка по Украине<br>в течение 2 дней</div>
+            <div>Доставка до дверей<br>в течение 2 дней</div>
           </div>
           <div class="feature">
             <div class="icon-3"/>
@@ -99,7 +91,6 @@ export default {
       finalText: 'Жду звонка',
       loading: false,
       submitted: false,
-      agree: true,
       validate: false,
       totalObject: {},
       stopFake: false
@@ -108,7 +99,7 @@ export default {
   methods: {
     ...mapMutations(['setPersonal', 'prev']),
     sendData() {
-      if (this.name && this.phone && this.agree) {
+      if (this.name && this.phone) {
         this.validate = false
         this.setPersonal([this.name, this.phone])
         this.getAllInfo()
@@ -213,7 +204,7 @@ export default {
   computed: {
     disabled: {
       get() {
-        return this.name && this.phone && this.agree ? false : true
+        return this.name && this.phone ? false : true
       }
     },
     finalKit: {
@@ -270,23 +261,25 @@ export default {
     display: flex;
     flex-wrap: wrap;
     font-size: 14px;
-    padding-top: 236px;
+    padding-top: 110px;
 
     .feature {
-      max-height: 50px;
+      max-height: 120px;
       width: 50%;
       display: flex;
+      flex-direction: column;
       align-items: center;
       margin-bottom: 20px;
+      text-align: center;
+      font-size: 16px;
 
       [class^=icon] {
-        width: 40px;
-        height: 40px;
+        min-width: 55px;
+        min-height: 55px;
         display: block;
         background-repeat: no-repeat;
         background-size: cover;
         margin: 10px 0;
-        margin-right: 15px;
       }
 
       .icon-1 {
@@ -393,6 +386,25 @@ export default {
       border: 1px solid #d20004;
       box-shadow: 0px 0px 1px 1px #d2000445;
       transition: all .5s ease;
+    }
+  }
+
+  .final-buttons {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 20px 0;
+
+    .button-green {
+      background: #5EB14C;
+      border: 1px solid #5EB14C;
+      margin-bottom: 10px;
+      margin-right: 0;
+    }
+
+    .button-prev {
+      border: 0;
+      background: transparent;
     }
   }
 </style>

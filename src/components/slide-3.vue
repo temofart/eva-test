@@ -85,7 +85,7 @@
           @click.prevent="sendData(item, id)"
           class="button"
           :id="id"
-        >Выбрать комплект</button>
+        >Заказать комплект</button>
       </div>
     </div>
     <div class="mob-wrap">

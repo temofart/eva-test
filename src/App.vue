@@ -2,7 +2,7 @@
   <div id="constructor">
     <transition name="fade" mode="out-in">
       <keep-alive>
-        <component :is="`slide-${currentSlide}`" />
+        <component :is="`slide-${4}`" />
       </keep-alive>
     </transition>
     <transition name="fade" mode="out-in">
