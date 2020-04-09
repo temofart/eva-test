@@ -106,7 +106,7 @@ export default {
         const form = document.querySelector('input[value="form1"]').parentElement || undefined
         if (form) {
           this.totalObject.isFake = false
-          form.querySelector('input[name="CRM_Input"]').value = JSON.stringify(this.totalObject)
+          form.querySelector('input[name="CRM_Object"]').value = JSON.stringify(this.totalObject)
           form.querySelector('.t-submit').click()
         }
         else {
@@ -128,7 +128,7 @@ export default {
         const form = document.querySelector('input[value="form2"]').parentElement || undefined
         if (form) {
           this.totalObject.isFake = true
-          form.querySelector('input[name="CRM_Input_2"]').value = JSON.stringify(this.totalObject)
+          form.querySelector('input[name="CRM_Object2"]').value = JSON.stringify(this.totalObject)
           form.querySelector('.t-submit').click()
         }
         else {
