@@ -99,7 +99,7 @@ export default {
   methods: {
     ...mapMutations(['setPersonal', 'prev']),
     sendData() {
-      if (this.name && this.phone) {
+      if (this.phone) {
         this.validate = false
         this.setPersonal([this.name, this.phone])
         this.getAllInfo()
@@ -205,7 +205,7 @@ export default {
   computed: {
     disabled: {
       get() {
-        return this.name && this.phone ? false : true
+        return this.phone ? false : true
       }
     },
     finalKit: {
