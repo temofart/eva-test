@@ -121,6 +121,7 @@ export default {
     padding: 20px 0;
     padding-bottom: 50px;
     background: #fff;
+    min-height: 580px;
 
     * {
       box-sizing: border-box;

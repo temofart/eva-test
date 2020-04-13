@@ -1,59 +1,52 @@
 <template>
-  <div class="slide slide-4 column-2" :class="{'submitted': submitted, 'validate': validate}">
-    <div class="final" v-if="submitted">
-      <button class="button button-final">Спасибо за заявку, {{this.$store.state.personal[0]}}!</button>
-      <div class="description">Мы свяжемся с вами в ближайшее время, чтобы обсудить коврики, которые уже ждет ваш автомобиль {{this.$store.state.carModel[0]}} {{this.$store.state.carModel[1]}}.</div>
+  <div class="slide slide-4 column-2" :class="{'validate': validate}">
+    <div class="column">
+      <button
+        class="button-prev"
+        @click.prevent="prev"
+      >
+        Вернуться назад
+      </button>
+      <h2 class="title">Виртуальный<br>конструктор ковриков</h2>
+      <div class="step">ШАГ 4 из 4</div>
+      <template>
+        <strong class="description">Оставьте заявку и получите 2 логотипа в подарок. Мы пошьем Ваш комплект за 48 часов и доставим прямо до дверей вам домой.</strong>
+        <input
+          :class="{'active': name, 'error': !name}"
+          class="input"
+          type="text"
+          placeholder="Имя"
+          v-model="name"
+          @change="sendFake"
+          @focus="stopFake = true"
+        >
+
+        <masked-input
+          v-model="phone"
+          :class="{'active': phone, 'error': !phone}"
+          class="input m-b-0"
+          type="tel"
+          name="phone"
+          :mask="['+', '3', '8', ' ', '(', /[0-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]"
+          placeholderChar="_"
+          placeholder="Телефон"
+          @change="sendFake"
+          @focus="stopFake = true"
+        >
+        </masked-input>
+
+        <div class="final-buttons">
+          <button
+            class="button button-green"
+            :class="{disabled: disabled}"
+            :id="`complect_${finalKit}`"
+            @click.prevent="sendData"
+          >
+            Заказать комплект
+          </button>
+        </div>
+      </template>
     </div>
-    <template v-if="!submitted">
-      <div class="column">
-        <h2 class="title">Виртуальный<br>конструктор ковриков</h2>
-        <div class="step">ШАГ 4 из 4</div>
-        <template v-if="!submitted">
-          <strong class="description">Оставьте заявку и получите 2 логотипа в подарок. Мы пошьем Ваш комплект за 48 часов и доставим прямо до дверей вам домой.</strong>
-          <input
-            :class="{'active': name, 'error': !name}"
-            class="input"
-            type="text"
-            placeholder="Имя"
-            v-model="name"
-            @change="sendFake"
-            @focus="stopFake = true"
-          >
-
-          <masked-input
-            v-model="phone"
-            :class="{'active': phone, 'error': !phone}"
-            class="input m-b-0"
-            type="tel"
-            name="phone"
-            :mask="['+', '3', '8', ' ', '(', /[0-9]/, /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, /\d/, /\d/]"
-            placeholderChar="_"
-            placeholder="Телефон"
-            @change="sendFake"
-            @focus="stopFake = true"
-          >
-          </masked-input>
-
-          <div class="final-buttons">
-            <button
-              v-if="!submitted"
-              class="button button-green"
-              :class="{disabled: disabled}"
-              :id="`complect_${finalKit}`"
-              @click.prevent="sendData"
-            >
-              Заказать комплект
-            </button>
-            <button
-              class="button-prev"
-              @click.prevent="prev"
-            >
-              Вернуться назад
-            </button>
-          </div>
-        </template>
-      </div>
-    </template>
     <transition name="fade" mode="out-in">
       <div class="column">
         <div class="features">
@@ -225,14 +218,6 @@ export default {
     padding-right: 10%;
   }
 
-  button {
-    margin-top: 0;
-
-    &:first-child {
-      margin-right: 20px;
-    }
-  }
-
   .flex {
     display: flex;
   }
@@ -262,7 +247,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     font-size: 14px;
-    padding-top: 110px;
+    padding-top: 200px;
 
     .feature {
       max-height: 120px;
@@ -367,10 +352,6 @@ export default {
     }
   }
 
-  .submitted {
-    margin: 100px 0;
-  }
-
   input[type=number]::-webkit-inner-spin-button,
   input[type=number]::-webkit-outer-spin-button {
       appearance: none !important;
@@ -402,10 +383,10 @@ export default {
       margin-bottom: 10px;
       margin-right: 0;
     }
+  }
 
-    .button-prev {
-      border: 0;
-      background: transparent;
-    }
+  .button-prev {
+    border: 0;
+    padding: 20px 0;
   }
 </style>
